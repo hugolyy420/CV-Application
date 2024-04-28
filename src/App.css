@@ -72,30 +72,6 @@
     gap: var(--standard-gap);
   }
 
-  /* Input Component Style to be moved later*/
-
-  .input-card {
-    display: flex;
-    flex-direction: column;
-    gap: var(--standard-gap);
-    background-color: var(--primary-color);
-    box-shadow: var(--box-shadow);
-    border-radius: 10px;
-    min-width: 250px;
-  }
-
-  .card-button {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    background-color: var(--primary-color);
-    padding: var(--standard-padding);
-    padding-bottom: 0;
-    color: var(--text-color);
-    border: none;
-  }
-
   .resume-container {
     width: 100%;
     max-width: 1000px;
@@ -103,34 +79,8 @@
     justify-content: center;
   }
 
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--standard-gap);
-  }
+  /* Input Component Style to be moved later*/
 
-  .form-container {
-    padding: var(--standard-gap);
-    padding-top: 0;
-  }
-
-  label {
-    display: flex;
-    flex-direction: column;
-    gap: var(--small-gap);
-  }
-
-  input {
-    background-color: var(--secondary-color);
-    padding: var(--input-padding);
-    border-radius: 10px;
-    border: none;
-    color: var(--text-color);
-  }
-
-  input:focus {
-    outline: 1px solid var(--accent-color);
-  }
   /* display part */
 
   .resume {

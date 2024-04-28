@@ -6,9 +6,65 @@ import {
   faPhone,
   faLocationDot
 } from '@fortawesome/free-solid-svg-icons';
+import BasicInfoInputCard from './components/basic-info-component';
 import './App.css';
 
 function App() {
+  const [basicInfo, setBasicInfo] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    location: '',
+    summary: ''
+  });
+
+  const handleFirstNameChange = (event) => {
+    const temp = { ...basicInfo };
+    temp.firstName = event.target.value;
+    setBasicInfo(temp);
+  };
+
+  const handleLastNameChange = (event) => {
+    const temp = { ...basicInfo };
+    temp.lastName = event.target.value;
+    setBasicInfo(temp);
+  };
+
+  const handleEmailChange = (event) => {
+    const temp = { ...basicInfo };
+    temp.email = event.target.value;
+    setBasicInfo(temp);
+  };
+
+  const handlePhoneChange = (event) => {
+    const temp = { ...basicInfo };
+    temp.phone = event.target.value;
+    setBasicInfo(temp);
+  };
+
+  const handleLocationChange = (event) => {
+    const temp = { ...basicInfo };
+    temp.location = event.target.value;
+    setBasicInfo(temp);
+  };
+
+  const handleSummaryChange = (event) => {
+    const temp = { ...basicInfo };
+    temp.summary = event.target.value;
+    setBasicInfo(temp);
+  };
+
+  const toggleFormDisplay = (event) => {
+    if (event.target.tagName === 'BUTTON') {
+      const form = event.target.nextElementSibling;
+      form.classList.toggle('hide');
+    } else {
+      const form = event.target.parentNode.nextElementSibling;
+      form.classList.toggle('hide');
+    }
+  };
+
   return (
     <>
       <header>
@@ -16,28 +72,16 @@ function App() {
       </header>
       <main className="content">
         <section className="input-container">
-          <div className="input-card">
-            <button className="card-button">
-              <h2>Basic Information</h2>
-              <FontAwesomeIcon className="chevron" icon={faChevronDown} />
-            </button>
-            <div className="form-container">
-              <form action="">
-                <div className="input-group">
-                  <label htmlFor="first-name">
-                    First Name
-                    <input type="text" name="first-name" id="first-name" />
-                  </label>
-                </div>
-                <div className="input-group">
-                  <label htmlFor="last-name">
-                    Last Name
-                    <input type="text" name="last-name" id="last-name" />
-                  </label>
-                </div>
-              </form>
-            </div>
-          </div>
+          <BasicInfoInputCard
+            basicInfo={basicInfo}
+            handleFirstNameChange={handleFirstNameChange}
+            handleLastNameChange={handleLastNameChange}
+            handleEmailChange={handleEmailChange}
+            handlePhoneChange={handlePhoneChange}
+            handleLocationChange={handleLocationChange}
+            handleSummaryChange={handleSummaryChange}
+            toggleFormDisplay={toggleFormDisplay}
+          />
           <div className="input-card">
             <div className="card-button">
               <h2>Skills</h2>
@@ -61,30 +105,30 @@ function App() {
           <div className="resume">
             <div className="basic-information-display-container">
               <div className="full-name">
-                <h1>Hugo Leung</h1>
+                <h1>
+                  {basicInfo.firstName} {basicInfo.lastName}
+                </h1>
               </div>
               <div className="contact-information">
                 <div className="contact-information-group">
-                  <FontAwesomeIcon className="chevron fa-icon" icon={faEnvelope} />
-                  <p>hugolyy@gmail.com</p>
+                  {basicInfo.email && <FontAwesomeIcon className="fa-icon" icon={faEnvelope} />}
+                  <p>{basicInfo.email}</p>
                 </div>
                 <div className="contact-information-group">
-                  <FontAwesomeIcon icon={faPhone} />
-                  <p>+852 6995 2551</p>
+                  {basicInfo.phone && <FontAwesomeIcon className="fa-icon" icon={faPhone} />}
+                  <p>{basicInfo.phone}</p>
                 </div>
                 <div className="contact-information-group">
-                  <FontAwesomeIcon icon={faLocationDot} />
-                  <p>Hong Kong</p>
+                  {basicInfo.location && (
+                    <FontAwesomeIcon className="fa-icon" icon={faLocationDot} />
+                  )}
+                  <p>{basicInfo.location}</p>
                 </div>
               </div>
             </div>
             <div className="summary-container">
-              <h2>Summary</h2>
-              <div className="summary">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat facilis quas,
-                excepturi eligendi ipsum voluptas non! Vel autem provident ipsa ipsum inventore non,
-                facilis cum nobis officiis at enim! Dolore?
-              </div>
+              {basicInfo.summary && <h2>Summary</h2>}
+              <div className="summary">{basicInfo.summary}</div>
             </div>
             <div className="skills-container">
               <h2>Skills</h2>
