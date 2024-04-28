@@ -5,17 +5,19 @@
 }
 
 :root {
+  --small-padding: clamp(0.3rem, 0.05rem + 0.5vw, 0.8rem);
   --standard-padding: clamp(0.7rem, 0.2rem + 2vw, 1.5rem);
   --large-padding: clamp(1rem, 0.2rem + 2.5vw, 2.5rem);
   --standard-margin: clamp(0.8rem, 0.2rem + 2vw, 1.5rem);
   --standard-gap: clamp(0.8rem, 0.2rem + 2vw, 1.5rem);
-  --small-gap: clamp(0.2rem, 0.01rem + 0.3vw, 0.7rem);
+  --small-gap: clamp(0.2rem, 0.01rem + 0.4vw, 0.7rem);
   --input-padding: clamp(0.2rem, 0.01rem + 0.5vw, 0.7rem);
   --background-color: #f8fbfd;
   --primary-color: #f8fbfd;
   --secondary-color: #e7e9ea;
   --accent-color: #4eb7e9;
   --text-color: #081013;
+  --cancel-color: #ea6767;
   --box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
@@ -37,8 +39,16 @@
     font-size: clamp(1.1rem, 0.1rem + 1.5vw, 1.3rem);
   }
 
+  h3 {
+    font-size: clamp(1rem, 0.1rem + 1.2vw, 1.1rem);
+  }
+
   p {
-    font-size: clamp(0.8rem, 0.1rem + 1vw, 1.1rem);
+    font-size: clamp(0.9rem, 0.1rem + 1vw, 1rem);
+  }
+
+  .fa-icon {
+    cursor: pointer;
   }
 
   header {

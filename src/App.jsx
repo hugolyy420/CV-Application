@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronDown,
@@ -7,6 +8,7 @@ import {
   faLocationDot
 } from '@fortawesome/free-solid-svg-icons';
 import BasicInfoInputCard from './components/basic-info-component';
+import SkillsInputCard from './components/skills-component';
 import './App.css';
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
     location: '',
     summary: ''
   });
+  const [skills, setSkills] = useState([]);
+  const [originalSkills, setOriginalSkills] = useState([]);
 
   const handleFirstNameChange = (event) => {
     const temp = { ...basicInfo };
@@ -55,14 +59,40 @@ function App() {
     setBasicInfo(temp);
   };
 
-  const toggleFormDisplay = (event) => {
-    if (event.target.tagName === 'BUTTON') {
-      const form = event.target.nextElementSibling;
-      form.classList.toggle('hide');
-    } else {
-      const form = event.target.parentNode.nextElementSibling;
-      form.classList.toggle('hide');
-    }
+  const handleAddSkillChange = () => {
+    const temp = [...skills];
+    setOriginalSkills(temp);
+    const newSkill = { id: uuidv4(), skill: '', edit: true };
+    setSkills([...temp, newSkill]);
+  };
+
+  const handleEditSkillChange = (id, event) => {
+    const temp = [...skills];
+    if (!event) setOriginalSkills(temp);
+    const newTemp = temp.map((item) => {
+      if (item.id === id && event) return { ...item, skill: event.target.value };
+      if (item.id === id && !event) return { ...item, edit: true };
+      return item;
+    });
+    setSkills(newTemp);
+  };
+
+  const handleCancelAddSkillChange = () => {
+    setSkills(originalSkills);
+  };
+
+  const handleSubmitSkillChange = () => {
+    const newTemp = skills.map((item) => {
+      if (item.edit) return { ...item, edit: false };
+      return item;
+    });
+    setSkills(newTemp);
+  };
+
+  const handleDeleteSkillChange = (id) => {
+    const temp = [...skills];
+    const newTemp = temp.filter((item) => item.id !== id);
+    setSkills(newTemp);
   };
 
   return (
@@ -80,14 +110,15 @@ function App() {
             handlePhoneChange={handlePhoneChange}
             handleLocationChange={handleLocationChange}
             handleSummaryChange={handleSummaryChange}
-            toggleFormDisplay={toggleFormDisplay}
           />
-          <div className="input-card">
-            <div className="card-button">
-              <h2>Skills</h2>
-              <FontAwesomeIcon className="chevron" icon={faChevronDown} />
-            </div>
-          </div>
+          <SkillsInputCard
+            handleAddSkillChange={handleAddSkillChange}
+            handleEditSkillChange={handleEditSkillChange}
+            handleCancelAddSkillChange={handleCancelAddSkillChange}
+            handleSubmitSkillChange={handleSubmitSkillChange}
+            handleDeleteSkillChange={handleDeleteSkillChange}
+            skills={skills}
+          />
           <div className="input-card">
             <div className="card-button">
               <h2>Education</h2>
@@ -131,15 +162,12 @@ function App() {
               <div className="summary">{basicInfo.summary}</div>
             </div>
             <div className="skills-container">
-              <h2>Skills</h2>
+              {skills[0] && <h2>Skills</h2>}
               <div className="skills">
                 <ul className="skills-list">
-                  <li>Lorem, ipsum.</li>
-                  <li>Lorem, ipsum.</li>
-                  <li>Lorem ipsum dolor sit.</li>
-                  <li>Lorem, ipsum.</li>
-                  <li>Lorem, ipsum.</li>
-                  <li>Lorem ipsum dolor sit.</li>
+                  {skills.map((item) => (
+                    <li key={item.id}>{item.skill}</li>
+                  ))}
                 </ul>
               </div>
             </div>
