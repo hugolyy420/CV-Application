@@ -38,6 +38,10 @@ label {
   gap: var(--small-gap);
 }
 
+.on-going-label {
+  flex-direction: row;
+}
+
 input,
 textarea {
   background-color: var(--secondary-color);
@@ -46,6 +50,7 @@ textarea {
   border: none;
   color: var(--text-color);
   font-family: inherit;
+  color-scheme: light;
 }
 
 input:focus {
@@ -56,7 +61,7 @@ textarea {
   resize: vertical;
 }
 
-.skills-banner {
+.skill-banner {
   padding: var(--small-padding);
   box-shadow: var(--box-shadow);
   border-radius: 10px;
@@ -65,12 +70,12 @@ textarea {
   gap: var(--small-gap);
 }
 
-.skills-banner > p,
-.skills-banner > input {
+.skill-banner > p,
+.skill-banner > input {
   flex: 1;
 }
 
-.skills-banner > p {
+.skill-banner > p {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;

@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faScrewdriverWrench, faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
-function AddSkillForm({ item, handleEditSkillChange, handleDeleteSkillChange, setEdit, edit }) {
+function SkillBanner({ item, handleEditSkillChange, handleDeleteSkillChange, setEdit, edit }) {
   return (
-    <div className="skills-banner add-skill-form">
+    <div className="skill-banner">
       <FontAwesomeIcon icon={faScrewdriverWrench} />
       {item.edit ? (
         <input
@@ -40,4 +40,4 @@ function AddSkillForm({ item, handleEditSkillChange, handleDeleteSkillChange, se
   );
 }
 
-export default AddSkillForm;
+export default SkillBanner;
