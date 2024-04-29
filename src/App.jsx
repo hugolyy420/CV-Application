@@ -25,6 +25,7 @@ function App() {
   const [originalSkills, setOriginalSkills] = useState([]);
   const [education, setEducation] = useState([]);
   const [originalEducation, setOriginalEducation] = useState([]);
+  const [extraInfoEdit, setExtraInfoEdit] = useState(false);
 
   const handleFirstNameChange = (event) => {
     const temp = { ...basicInfo };
@@ -169,6 +170,97 @@ function App() {
     setEducation(newTemp);
   };
 
+  const handleSubmitEducationChange = () => {
+    const newTemp = education.map((item) => {
+      if (item.edit) return { ...item, edit: false };
+      return item;
+    });
+    setEducation(newTemp);
+  };
+
+  const handleEditEducationChange = (id) => {
+    const temp = [...education];
+    setOriginalEducation(temp);
+    const newTemp = temp.map((item) => {
+      if (item.id === id) return { ...item, edit: true };
+      return item;
+    });
+    setEducation(newTemp);
+  };
+
+  const handleCancelAddEducationChange = () => {
+    setEducation(originalEducation);
+  };
+
+  const handleDeleteEducationChange = (id) => {
+    const temp = [...education];
+    const newTemp = temp.filter((item) => item.id !== id);
+    setEducation(newTemp);
+  };
+
+  const handleAddEducationExtraInfoChange = (id) => {
+    const temp = [...education];
+    setOriginalEducation(temp);
+    const newEducationExtraInfo = { id: uuidv4(), extraInfo: '', edit: true };
+    const newTemp = temp.map((item) => {
+      if (item.id === id) {
+        const extraInfo = [...item.extraInfo];
+        return { ...item, extraInfo: [...extraInfo, newEducationExtraInfo] };
+      }
+      return item;
+    });
+    setEducation(newTemp);
+  };
+
+  const handleEducationExtraInfoChange = (id, event) => {
+    const temp = [...education];
+    const newTemp = temp.map((item) => {
+      if (item.id === id) {
+        const newExtraInfo = item.extraInfo.map((subItem) => {
+          if (subItem.edit) return { ...subItem, extraInfo: event.target.value };
+          return subItem;
+        });
+        return { ...item, extraInfo: newExtraInfo };
+      }
+      return item;
+    });
+    setEducation(newTemp);
+  };
+
+  const handleSubmitEducationExtraInfoChange = () => {
+    const temp = [...education];
+    const newTemp = temp.map((item) => {
+      const newExtraInfo = item.extraInfo.map((subItem) => {
+        if (subItem.edit) return { ...subItem, edit: false };
+        return subItem;
+      });
+      return { ...item, extraInfo: newExtraInfo };
+    });
+    setEducation(newTemp);
+  };
+
+  const handleEditEducationExtraInfoChange = (id) => {
+    const temp = [...education];
+    setOriginalEducation(temp);
+    const newTemp = temp.map((item) => {
+      const newExtraInfo = item.extraInfo.map((subItem) => {
+        if (subItem.id === id) return { ...subItem, edit: true };
+        return subItem;
+      });
+      return { ...item, extraInfo: newExtraInfo };
+    });
+    setEducation(newTemp);
+  };
+
+  const handleDeleteEducationExtraInfoChange = (id) => {
+    const temp = [...education];
+    const newTemp = temp.map((item) => {
+      const newExtraInfo = item.extraInfo.filter((subItem) => subItem.id !== id);
+      return { ...item, extraInfo: newExtraInfo };
+    });
+    setEducation(newTemp);
+  };
+
   return (
     <>
       <header>
@@ -201,6 +293,17 @@ function App() {
             handleStartingYearChange={handleStartingYearChange}
             handleEndingYearChange={handleEndingYearChange}
             handleEducationCurrentStatusChange={handleEducationCurrentStatusChange}
+            handleAddEducationExtraInfoChange={handleAddEducationExtraInfoChange}
+            handleEducationExtraInfoChange={handleEducationExtraInfoChange}
+            handleSubmitEducationChange={handleSubmitEducationChange}
+            handleEditEducationChange={handleEditEducationChange}
+            handleCancelAddEducationChange={handleCancelAddEducationChange}
+            handleDeleteEducationChange={handleDeleteEducationChange}
+            handleSubmitEducationExtraInfoChange={handleSubmitEducationExtraInfoChange}
+            handleEditEducationExtraInfoChange={handleEditEducationExtraInfoChange}
+            handleDeleteEducationExtraInfoChange={handleDeleteEducationExtraInfoChange}
+            extraInfoEdit={extraInfoEdit}
+            setExtraInfoEdit={setExtraInfoEdit}
             education={education}
           />
           <div className="input-card">
@@ -250,7 +353,7 @@ function App() {
               </div>
             </div>
             <div className="education-container">
-              <h2>Education</h2>
+              {education[0] && <h2>Education</h2>}
               <div className="education">
                 {education.map((item) => (
                   <div key={item.id} className="education-display-container">
@@ -267,8 +370,9 @@ function App() {
                       <p>{item.program}</p>
                     </div>
                     <ul className="education-extra-info">
-                      <li>First Honor</li>
-                      <li>Exchange to Japan</li>
+                      {item.extraInfo.map((subItem) => (
+                        <li key={subItem.id}>{subItem.extraInfo}</li>
+                      ))}
                     </ul>
                   </div>
                 ))}

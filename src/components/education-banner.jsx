@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSchool, faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import EducationExtraInfoBanner from './education-extra-info-banner';
 import '../styles/input-card-style.css';
 
 function EducationBanner({
@@ -11,120 +13,190 @@ function EducationBanner({
   handleStartingYearChange,
   handleEndingYearChange,
   handleEducationCurrentStatusChange,
+  handleAddEducationExtraInfoChange,
+  handleEducationExtraInfoChange,
+  handleEditEducationChange,
+  handleDeleteEducationChange,
+  handleCancelAddEducationChange,
+  handleSubmitEducationExtraInfoChange,
+  handleEditEducationExtraInfoChange,
+  handleDeleteEducationExtraInfoChange,
   setEdit,
-  edit
+  edit,
+  extraInfoEdit,
+  setExtraInfoEdit
 }) {
   const [current, setCurrent] = useState(false);
-  return (
-    <div className="education-banner">
-      {item.edit ? (
-        <form
-          action="
-        ">
-          <div className="input-group">
-            <label htmlFor="school">
-              <p>School</p>
-              <input
-                type="text"
-                name="school"
-                id="school"
-                value={item.school}
-                onChange={(event) => handleSchoolChange(item.id, event)}
-              />
-            </label>
-          </div>
-          <div className="input-group">
-            <label htmlFor="program">
-              <p>Degree/ Course/ Program</p>
-              <input
-                type="text"
-                name="program"
-                id="program"
-                value={item.program}
-                onChange={(event) => handleProgramChange(item.id, event)}
-              />
-            </label>
-          </div>
-          <div className="input-group">
-            <label htmlFor="location">
-              <p>Location</p>
-              <input
-                type="text"
-                name="location"
-                id="location"
-                value={item.location}
-                onChange={(event) => handleSchoolLocationChange(item.id, event)}
-              />
-            </label>
-          </div>
-          <div className="input-group">
-            <label htmlFor="starting-year">
-              <p>Starting Year</p>
-              <input
-                type="month"
-                name="starting-year"
-                id="starting-year"
-                value={item.startingYear}
-                onChange={(event) => handleStartingYearChange(item.id, event)}
-              />
-            </label>
-          </div>
-          {!current && (
+
+  const bannerAction = () => {
+    if (edit && item.edit) {
+      return (
+        <div className="education-banner">
+          <form
+            action="
+">
             <div className="input-group">
-              <label htmlFor="ending-year">
-                <p>Ending Year</p>
+              <label htmlFor="school">
+                <p>School</p>
                 <input
-                  type="month"
-                  name="ending-year"
-                  id="ending-year"
-                  value={item.endingYear}
-                  onChange={(event) => handleEndingYearChange(item.id, event)}
+                  type="text"
+                  name="school"
+                  id="school"
+                  value={item.school}
+                  onChange={(event) => handleSchoolChange(item.id, event)}
                 />
               </label>
             </div>
-          )}
+            <div className="input-group">
+              <label htmlFor="program">
+                <p>Degree/ Course/ Program</p>
+                <input
+                  type="text"
+                  name="program"
+                  id="program"
+                  value={item.program}
+                  onChange={(event) => handleProgramChange(item.id, event)}
+                />
+              </label>
+            </div>
+            <div className="input-group">
+              <label htmlFor="location">
+                <p>Location</p>
+                <input
+                  type="text"
+                  name="location"
+                  id="location"
+                  value={item.location}
+                  onChange={(event) => handleSchoolLocationChange(item.id, event)}
+                />
+              </label>
+            </div>
+            <div className="input-group">
+              <label htmlFor="starting-year">
+                <p>Starting Year</p>
+                <input
+                  type="month"
+                  name="starting-year"
+                  id="starting-year"
+                  value={item.startingYear}
+                  onChange={(event) => handleStartingYearChange(item.id, event)}
+                />
+              </label>
+            </div>
+            {!current && (
+              <div className="input-group">
+                <label htmlFor="ending-year">
+                  <p>Ending Year</p>
+                  <input
+                    type="month"
+                    name="ending-year"
+                    id="ending-year"
+                    value={item.endingYear}
+                    onChange={(event) => handleEndingYearChange(item.id, event)}
+                  />
+                </label>
+              </div>
+            )}
 
-          <div className="input-group">
-            <label htmlFor="onGoing" className="on-going-label">
-              <p>On-going</p>
-              <input
-                type="checkbox"
-                name="onGoing"
-                id="onGoing"
-                value={item.onGoing}
-                onChange={(event) => {
-                  setCurrent(!current);
-                  handleEducationCurrentStatusChange(item.id, item.onGoing, event);
-                }}
-              />
-            </label>
-          </div>
-        </form>
-      ) : (
-        <>
-          <FontAwesomeIcon icon={faSchool} />
+            <div className="input-group">
+              <label htmlFor="onGoing" className="on-going-label">
+                <p>On-going</p>
+                <input
+                  type="checkbox"
+                  name="onGoing"
+                  id="onGoing"
+                  value={item.onGoing}
+                  onChange={(event) => {
+                    setCurrent(!current);
+                    handleEducationCurrentStatusChange(item.id, item.onGoing, event);
+                  }}
+                />
+              </label>
+            </div>
+            <div className="input-group">
+              <p>Extra Information</p>
+              <div className="extra-info-container">
+                {item.extraInfo.map((subItem) => (
+                  <EducationExtraInfoBanner
+                    subItem={subItem}
+                    item={item}
+                    key={subItem.id}
+                    extraInfoEdit={extraInfoEdit}
+                    setExtraInfoEdit={setExtraInfoEdit}
+                    handleEducationExtraInfoChange={handleEducationExtraInfoChange}
+                    handleEditEducationExtraInfoChange={handleEditEducationExtraInfoChange}
+                    handleDeleteEducationExtraInfoChange={handleDeleteEducationExtraInfoChange}
+                  />
+                ))}
+              </div>
+              {extraInfoEdit ? (
+                <div
+                  className="education-extra-info-button-container"
+                  style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <button
+                    type="button"
+                    className="form-button cancel-button"
+                    onClick={() => {
+                      setExtraInfoEdit(!extraInfoEdit);
+                      handleCancelAddEducationChange();
+                    }}>
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    className="form-button"
+                    onClick={() => {
+                      setExtraInfoEdit(!extraInfoEdit);
+                      handleSubmitEducationExtraInfoChange();
+                    }}>
+                    Confirm
+                  </button>
+                </div>
+              ) : (
+                <div
+                  className="education-extra-info-button-container"
+                  style={{ display: 'flex', justifyContent: 'center' }}>
+                  <button
+                    type="button"
+                    className="form-button add-extra-info-button"
+                    onClick={() => {
+                      setExtraInfoEdit(!extraInfoEdit);
+                      handleAddEducationExtraInfoChange(item.id);
+                    }}>
+                    <h3>+ New Info</h3>
+                  </button>
+                </div>
+              )}
+            </div>
+          </form>
+        </div>
+      );
+    }
+    if (!edit) {
+      return (
+        <div className="education-banner" style={{ padding: 'var(--small-padding)' }}>
+          <FontAwesomeIcon className="fa-icon" icon={faSchool} />
           <p>{item.school}</p>
-          {!edit && (
-            <>
-              <FontAwesomeIcon
-                className="fa-icon"
-                icon={faPenToSquare}
-                // onClick={() => {
-                //   setEdit(!edit);
-                //   handleEditSkillChange(item.id);
-                // }}
-              />
-              <FontAwesomeIcon
-                className="fa-icon"
-                icon={faTrashCan}
-                // onClick={() => handleDeleteSkillChange(item.id)}
-              />
-            </>
-          )}
-        </>
-      )}
-    </div>
-  );
+          <FontAwesomeIcon
+            className="fa-icon"
+            icon={faPenToSquare}
+            onClick={() => {
+              setEdit(!edit);
+              handleEditEducationChange(item.id);
+            }}
+          />
+          <FontAwesomeIcon
+            className="fa-icon"
+            icon={faTrashCan}
+            onClick={() => handleDeleteEducationChange(item.id)}
+          />
+        </div>
+      );
+    }
+
+    return '';
+  };
+  return <>{bannerAction()}</>;
 }
 
 export default EducationBanner;

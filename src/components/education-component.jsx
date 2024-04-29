@@ -12,7 +12,18 @@ function EducationInputCard({
   handleSchoolLocationChange,
   handleStartingYearChange,
   handleEndingYearChange,
-  handleEducationCurrentStatusChange
+  handleEducationCurrentStatusChange,
+  handleAddEducationExtraInfoChange,
+  handleEducationExtraInfoChange,
+  handleSubmitEducationChange,
+  handleEditEducationChange,
+  handleCancelAddEducationChange,
+  handleDeleteEducationChange,
+  handleSubmitEducationExtraInfoChange,
+  handleEditEducationExtraInfoChange,
+  handleDeleteEducationExtraInfoChange,
+  extraInfoEdit,
+  setExtraInfoEdit
 }) {
   const [edit, setEdit] = useState(false);
   const [expand, setExpand] = useState(false);
@@ -36,10 +47,18 @@ function EducationInputCard({
                 handleStartingYearChange={handleStartingYearChange}
                 handleEndingYearChange={handleEndingYearChange}
                 handleEducationCurrentStatusChange={handleEducationCurrentStatusChange}
-                // handleEditSkillChange={handleEditSkillChange}
-                // handleDeleteSkillChange={handleDeleteSkillChange}
+                handleAddEducationExtraInfoChange={handleAddEducationExtraInfoChange}
+                handleEducationExtraInfoChange={handleEducationExtraInfoChange}
+                handleEditEducationChange={handleEditEducationChange}
+                handleDeleteEducationChange={handleDeleteEducationChange}
+                handleCancelAddEducationChange={handleCancelAddEducationChange}
+                handleSubmitEducationExtraInfoChange={handleSubmitEducationExtraInfoChange}
+                handleEditEducationExtraInfoChange={handleEditEducationExtraInfoChange}
+                handleDeleteEducationExtraInfoChange={handleDeleteEducationExtraInfoChange}
                 setEdit={setEdit}
                 edit={edit}
+                extraInfoEdit={extraInfoEdit}
+                setExtraInfoEdit={setExtraInfoEdit}
               />
             ))}
           </div>
@@ -51,7 +70,7 @@ function EducationInputCard({
                   className="form-button cancel-button add-skill-form-button "
                   onClick={() => {
                     setEdit(!edit);
-                    // handleCancelAddSkillChange(edit);
+                    handleCancelAddEducationChange(edit);
                   }}>
                   <h3>Cancel</h3>
                 </button>
@@ -60,7 +79,7 @@ function EducationInputCard({
                   className="form-button submit-skill-button add-skill-form-button "
                   onClick={() => {
                     setEdit(!edit);
-                    // handleSubmitSkillChange();
+                    handleSubmitEducationChange();
                   }}>
                   <h3>Submit</h3>
                 </button>
