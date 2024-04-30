@@ -10,9 +10,10 @@ function SkillsInputCard({
   handleEditSkillChange,
   handleCancelAddSkillChange,
   handleSubmitSkillChange,
-  handleDeleteSkillChange
+  handleDeleteSkillChange,
+  setSkillsEdit,
+  skillsEdit
 }) {
-  const [edit, setEdit] = useState(false);
   const [expand, setExpand] = useState(false);
 
   return (
@@ -30,20 +31,20 @@ function SkillsInputCard({
                 item={item}
                 handleEditSkillChange={handleEditSkillChange}
                 handleDeleteSkillChange={handleDeleteSkillChange}
-                setEdit={setEdit}
-                edit={edit}
+                setSkillsEdit={setSkillsEdit}
+                skillsEdit={skillsEdit}
               />
             ))}
           </div>
           <div className="add-skills-button-container">
-            {edit ? (
+            {skillsEdit ? (
               <>
                 <button
                   type="button"
                   className="form-button cancel-button add-skill-form-button "
                   onClick={() => {
-                    setEdit(!edit);
-                    handleCancelAddSkillChange(edit);
+                    setSkillsEdit(!skillsEdit);
+                    handleCancelAddSkillChange(skillsEdit);
                   }}>
                   <h3>Cancel</h3>
                 </button>
@@ -51,7 +52,7 @@ function SkillsInputCard({
                   type="button"
                   className="form-button submit-skill-button add-skill-form-button "
                   onClick={() => {
-                    setEdit(!edit);
+                    setSkillsEdit(!skillsEdit);
                     handleSubmitSkillChange();
                   }}>
                   <h3>Submit</h3>
@@ -62,7 +63,7 @@ function SkillsInputCard({
                 type="button"
                 className="form-button add-skill-button add-skill-form-button"
                 onClick={() => {
-                  setEdit(!edit);
+                  setSkillsEdit(!skillsEdit);
                   handleAddSkillChange();
                 }}>
                 <h3>+ New</h3>

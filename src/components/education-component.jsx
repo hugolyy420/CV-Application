@@ -22,10 +22,9 @@ function EducationInputCard({
   handleSubmitEducationExtraInfoChange,
   handleEditEducationExtraInfoChange,
   handleDeleteEducationExtraInfoChange,
-  extraInfoEdit,
-  setExtraInfoEdit
+  educationEdit,
+  setEducationEdit
 }) {
-  const [edit, setEdit] = useState(false);
   const [expand, setExpand] = useState(false);
 
   return (
@@ -55,22 +54,20 @@ function EducationInputCard({
                 handleSubmitEducationExtraInfoChange={handleSubmitEducationExtraInfoChange}
                 handleEditEducationExtraInfoChange={handleEditEducationExtraInfoChange}
                 handleDeleteEducationExtraInfoChange={handleDeleteEducationExtraInfoChange}
-                setEdit={setEdit}
-                edit={edit}
-                extraInfoEdit={extraInfoEdit}
-                setExtraInfoEdit={setExtraInfoEdit}
+                setEducationEdit={setEducationEdit}
+                educationEdit={educationEdit}
               />
             ))}
           </div>
           <div className="add-skills-button-container">
-            {edit ? (
+            {educationEdit && education[0] ? (
               <>
                 <button
                   type="button"
                   className="form-button cancel-button add-skill-form-button "
                   onClick={() => {
-                    setEdit(!edit);
-                    handleCancelAddEducationChange(edit);
+                    setEducationEdit(!educationEdit);
+                    handleCancelAddEducationChange(educationEdit);
                   }}>
                   <h3>Cancel</h3>
                 </button>
@@ -78,7 +75,7 @@ function EducationInputCard({
                   type="button"
                   className="form-button submit-skill-button add-skill-form-button "
                   onClick={() => {
-                    setEdit(!edit);
+                    setEducationEdit(!educationEdit);
                     handleSubmitEducationChange();
                   }}>
                   <h3>Submit</h3>
@@ -89,7 +86,7 @@ function EducationInputCard({
                 type="button"
                 className="form-button add-skill-button add-skill-form-button"
                 onClick={() => {
-                  setEdit(!edit);
+                  setEducationEdit(!educationEdit);
                   handleAddSchoolChange();
                 }}>
                 <h3>+ New</h3>

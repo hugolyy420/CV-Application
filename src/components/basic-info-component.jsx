@@ -4,12 +4,7 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import '../styles/input-card-style.css';
 
 function BasicInfoInputCard({
-  firstName,
-  lastName,
-  email,
-  phone,
-  location,
-  summary,
+  basicInfo,
   handleFirstNameChange,
   handleLastNameChange,
   handleEmailChange,
@@ -35,7 +30,7 @@ function BasicInfoInputCard({
                   type="text"
                   name="first-name"
                   id="first-name"
-                  value={firstName}
+                  value={basicInfo.firstName}
                   onChange={handleFirstNameChange}
                 />
               </label>
@@ -47,7 +42,7 @@ function BasicInfoInputCard({
                   type="text"
                   name="last-name"
                   id="last-name"
-                  value={lastName}
+                  value={basicInfo.lastName}
                   onChange={handleLastNameChange}
                 />
               </label>
@@ -59,7 +54,7 @@ function BasicInfoInputCard({
                   type="email"
                   name="email"
                   id="email"
-                  value={email}
+                  value={basicInfo.email}
                   onChange={handleEmailChange}
                 />
               </label>
@@ -71,7 +66,7 @@ function BasicInfoInputCard({
                   type="tel"
                   name="phone"
                   id="phone"
-                  value={phone}
+                  value={basicInfo.phone}
                   onChange={handlePhoneChange}
                 />
               </label>
@@ -83,7 +78,7 @@ function BasicInfoInputCard({
                   type="text"
                   name="location"
                   id="location"
-                  value={location}
+                  value={basicInfo.location}
                   onChange={handleLocationChange}
                 />
               </label>
@@ -94,7 +89,7 @@ function BasicInfoInputCard({
                 <textarea
                   name="summary"
                   id="summary"
-                  value={summary}
+                  value={basicInfo.summary}
                   onChange={handleSummaryChange}
                   rows="7"
                 />

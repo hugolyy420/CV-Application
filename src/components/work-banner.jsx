@@ -1,58 +1,58 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSchool, faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import EducationExtraInfoBanner from './education-extra-info-banner';
+import { faPenToSquare, faTrashCan, faBriefcase } from '@fortawesome/free-solid-svg-icons';
+import JobDutyBanner from './job-duty-banner';
 import '../styles/input-card-style.css';
 
-function EducationBanner({
+function WorkBanner({
   item,
-  handleSchoolChange,
-  handleProgramChange,
-  handleSchoolLocationChange,
-  handleStartingYearChange,
-  handleEndingYearChange,
-  handleEducationCurrentStatusChange,
-  handleAddEducationExtraInfoChange,
-  handleEducationExtraInfoChange,
-  handleEditEducationChange,
-  handleDeleteEducationChange,
-  handleCancelAddEducationChange,
-  handleSubmitEducationExtraInfoChange,
-  handleEditEducationExtraInfoChange,
-  handleDeleteEducationExtraInfoChange,
-  educationEdit,
-  setEducationEdit
+  handleJobTitleChange,
+  handleCompanyChange,
+  handleCompanyLocationChange,
+  handleJobStartingYearChange,
+  handleJobEndingYearChange,
+  handleJobCurrentStatusChange,
+  handleAddJobDutyChange,
+  handleJobDutyChange,
+  handleEditWorkChange,
+  handleDeleteWorkChange,
+  handleCancelAddWorkChange,
+  handleSubmitJobDutyChange,
+  handleEditJobDutyChange,
+  handleDeleteJobDutyChange,
+  workExperienceEdit,
+  setWorkExperienceEdit
 }) {
-  const [extraInfoEdit, setExtraInfoEdit] = useState(false);
+  const [jobDutyEdit, setJobDutyEdit] = useState(false);
 
   const bannerAction = () => {
-    if (educationEdit && item.edit) {
+    if (workExperienceEdit && item.edit) {
       return (
         <div className="education-banner">
           <form
             action="
 ">
             <div className="input-group">
-              <label htmlFor="school">
-                <p>School</p>
+              <label htmlFor="jobTitle">
+                <p>Job Title</p>
                 <input
                   type="text"
-                  name="school"
-                  id="school"
-                  value={item.school}
-                  onChange={(event) => handleSchoolChange(item.id, event)}
+                  name="jobTitle"
+                  id="jobTitle"
+                  value={item.jobTitle}
+                  onChange={(event) => handleJobTitleChange(item.id, event)}
                 />
               </label>
             </div>
             <div className="input-group">
-              <label htmlFor="program">
-                <p>Degree/ Course/ Program</p>
+              <label htmlFor="company">
+                <p>Company/ Organization</p>
                 <input
                   type="text"
-                  name="program"
-                  id="program"
-                  value={item.program}
-                  onChange={(event) => handleProgramChange(item.id, event)}
+                  name="company"
+                  id="company"
+                  value={item.company}
+                  onChange={(event) => handleCompanyChange(item.id, event)}
                 />
               </label>
             </div>
@@ -64,7 +64,7 @@ function EducationBanner({
                   name="location"
                   id="location"
                   value={item.location}
-                  onChange={(event) => handleSchoolLocationChange(item.id, event)}
+                  onChange={(event) => handleCompanyLocationChange(item.id, event)}
                 />
               </label>
             </div>
@@ -76,7 +76,7 @@ function EducationBanner({
                   name="starting-year"
                   id="starting-year"
                   value={item.startingYear}
-                  onChange={(event) => handleStartingYearChange(item.id, event)}
+                  onChange={(event) => handleJobStartingYearChange(item.id, event)}
                 />
               </label>
             </div>
@@ -89,44 +89,44 @@ function EducationBanner({
                     name="ending-year"
                     id="ending-year"
                     value={item.endingYear}
-                    onChange={(event) => handleEndingYearChange(item.id, event)}
+                    onChange={(event) => handleJobEndingYearChange(item.id, event)}
                   />
                 </label>
               </div>
             )}
 
             <div className="input-group">
-              <label htmlFor="onGoing" className="on-going-label">
+              <label htmlFor="workOnGoing" className="on-going-label">
                 <p>On-going</p>
                 <input
                   type="checkbox"
                   name="onGoing"
-                  id="onGoing"
+                  id="workOnGoing"
                   value={item.onGoing}
                   checked={item.onGoing}
                   onChange={(event) => {
-                    handleEducationCurrentStatusChange(item.id, item.onGoing, event);
+                    handleJobCurrentStatusChange(item.id, item.onGoing, event);
                   }}
                 />
               </label>
             </div>
             <div className="input-group">
-              <p>Extra Information</p>
+              <p>Job Duty</p>
               <div className="extra-info-container">
-                {item.extraInfo.map((subItem) => (
-                  <EducationExtraInfoBanner
+                {item.jobDuty.map((subItem) => (
+                  <JobDutyBanner
                     subItem={subItem}
                     item={item}
                     key={subItem.id}
-                    extraInfoEdit={extraInfoEdit}
-                    setExtraInfoEdit={setExtraInfoEdit}
-                    handleEducationExtraInfoChange={handleEducationExtraInfoChange}
-                    handleEditEducationExtraInfoChange={handleEditEducationExtraInfoChange}
-                    handleDeleteEducationExtraInfoChange={handleDeleteEducationExtraInfoChange}
+                    jobDutyEdit={jobDutyEdit}
+                    setJobDutyEdit={setJobDutyEdit}
+                    handleJobDutyChange={handleJobDutyChange}
+                    handleEditJobDutyChange={handleEditJobDutyChange}
+                    handleDeleteJobDutyChange={handleDeleteJobDutyChange}
                   />
                 ))}
               </div>
-              {extraInfoEdit ? (
+              {jobDutyEdit ? (
                 <div
                   className="education-extra-info-button-container"
                   style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -134,8 +134,8 @@ function EducationBanner({
                     type="button"
                     className="form-button cancel-button"
                     onClick={() => {
-                      setExtraInfoEdit(!extraInfoEdit);
-                      handleCancelAddEducationChange();
+                      setJobDutyEdit(!jobDutyEdit);
+                      handleCancelAddWorkChange();
                     }}>
                     Cancel
                   </button>
@@ -143,8 +143,8 @@ function EducationBanner({
                     type="button"
                     className="form-button"
                     onClick={() => {
-                      setExtraInfoEdit(!extraInfoEdit);
-                      handleSubmitEducationExtraInfoChange();
+                      setJobDutyEdit(!jobDutyEdit);
+                      handleSubmitJobDutyChange();
                     }}>
                     Confirm
                   </button>
@@ -157,10 +157,10 @@ function EducationBanner({
                     type="button"
                     className="form-button add-extra-info-button"
                     onClick={() => {
-                      setExtraInfoEdit(!extraInfoEdit);
-                      handleAddEducationExtraInfoChange(item.id);
+                      setJobDutyEdit(!jobDutyEdit);
+                      handleAddJobDutyChange(item.id);
                     }}>
-                    <h3>+ New Info</h3>
+                    <h3>+ New Job Duty</h3>
                   </button>
                 </div>
               )}
@@ -169,23 +169,23 @@ function EducationBanner({
         </div>
       );
     }
-    if (!educationEdit) {
+    if (!workExperienceEdit) {
       return (
         <div className="education-banner" style={{ padding: 'var(--small-padding)' }}>
-          <FontAwesomeIcon className="fa-icon" icon={faSchool} />
-          <p>{item.school}</p>
+          <FontAwesomeIcon className="fa-icon" icon={faBriefcase} />
+          <p>{item.company}</p>
           <FontAwesomeIcon
             className="fa-icon"
             icon={faPenToSquare}
             onClick={() => {
-              setEducationEdit(!educationEdit);
-              handleEditEducationChange(item.id);
+              setWorkExperienceEdit(!workExperienceEdit);
+              handleEditWorkChange(item.id);
             }}
           />
           <FontAwesomeIcon
             className="fa-icon"
             icon={faTrashCan}
-            onClick={() => handleDeleteEducationChange(item.id)}
+            onClick={() => handleDeleteWorkChange(item.id)}
           />
         </div>
       );
@@ -196,4 +196,4 @@ function EducationBanner({
   return <>{bannerAction()}</>;
 }
 
-export default EducationBanner;
+export default WorkBanner;

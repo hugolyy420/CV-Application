@@ -3,8 +3,9 @@
   flex-direction: column;
   background-color: var(--primary-color);
   box-shadow: var(--box-shadow);
-  border-radius: 10px;
-  min-width: 250px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 300px;
 }
 
 .card-button {
@@ -16,6 +17,7 @@
   padding: var(--standard-padding);
   color: var(--text-color);
   border: none;
+  border-radius: 15px;
 }
 
 form {
@@ -129,4 +131,29 @@ textarea {
 
 .cancel-button:hover {
   color: var(--cancel-color);
+}
+
+.top-button-container {
+  flex-direction: row;
+  gap: var(--small-gap);
+  box-shadow: none;
+}
+
+.top-button-container > button {
+  flex: 1 1 0px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--box-shadow);
+}
+
+.clear-all-button {
+  background-color: var(--cancel-color);
+  color: var(--primary-color);
+  box-shadow: var(--box-shadow);
+}
+
+.load-example-button {
+  box-shadow: var(--box-shadow);
+  background-color: var(--accent-color);
+  color: var(--primary-color);
 }

@@ -1,7 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faScrewdriverWrench, faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
-function SkillBanner({ item, handleEditSkillChange, handleDeleteSkillChange, setEdit, edit }) {
+function SkillBanner({
+  item,
+  handleEditSkillChange,
+  handleDeleteSkillChange,
+  skillsEdit,
+  setSkillsEdit
+}) {
   return (
     <div className="skill-banner">
       <FontAwesomeIcon icon={faScrewdriverWrench} />
@@ -17,13 +23,13 @@ function SkillBanner({ item, handleEditSkillChange, handleDeleteSkillChange, set
       ) : (
         <>
           <p>{item.skill}</p>
-          {!edit && (
+          {!skillsEdit && (
             <>
               <FontAwesomeIcon
                 className="fa-icon"
                 icon={faPenToSquare}
                 onClick={() => {
-                  setEdit(!edit);
+                  setSkillsEdit(!skillsEdit);
                   handleEditSkillChange(item.id);
                 }}
               />

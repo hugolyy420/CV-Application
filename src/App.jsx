@@ -10,6 +10,7 @@ import {
 import BasicInfoInputCard from './components/basic-info-component';
 import SkillsInputCard from './components/skills-component';
 import EducationInputCard from './components/education-component';
+import WorkInputCard from './components/work-experience-component';
 import './App.css';
 
 function App() {
@@ -25,7 +26,11 @@ function App() {
   const [originalSkills, setOriginalSkills] = useState([]);
   const [education, setEducation] = useState([]);
   const [originalEducation, setOriginalEducation] = useState([]);
-  const [extraInfoEdit, setExtraInfoEdit] = useState(false);
+  const [workExperience, setWorkExperience] = useState([]);
+  const [originalWorkExperience, setOriginalWorkExperience] = useState([]);
+  const [skillsEdit, setSkillsEdit] = useState(false);
+  const [educationEdit, setEducationEdit] = useState(false);
+  const [workExperienceEdit, setWorkExperienceEdit] = useState(false);
 
   const handleFirstNameChange = (event) => {
     const temp = { ...basicInfo };
@@ -261,13 +266,311 @@ function App() {
     setEducation(newTemp);
   };
 
+  const handleAddWorkChange = () => {
+    const temp = [...workExperience];
+    setOriginalWorkExperience(temp);
+    const newWork = {
+      id: uuidv4(),
+      jobTitle: '',
+      company: '',
+      location: '',
+      startingYear: '',
+      endingYear: '',
+      jobDuty: [],
+      onGoing: false,
+      edit: true
+    };
+    setWorkExperience([...temp, newWork]);
+  };
+
+  const handleJobTitleChange = (id, event) => {
+    const temp = [...workExperience];
+    const newTemp = temp.map((item) => {
+      if (item.id === id && event) return { ...item, jobTitle: event.target.value };
+      return item;
+    });
+    setWorkExperience(newTemp);
+  };
+
+  const handleCompanyChange = (id, event) => {
+    const temp = [...workExperience];
+    const newTemp = temp.map((item) => {
+      if (item.id === id && event) return { ...item, company: event.target.value };
+      return item;
+    });
+    setWorkExperience(newTemp);
+  };
+
+  const handleCompanyLocationChange = (id, event) => {
+    const temp = [...workExperience];
+    const newTemp = temp.map((item) => {
+      if (item.id === id && event) return { ...item, location: event.target.value };
+      return item;
+    });
+    setWorkExperience(newTemp);
+  };
+
+  const handleJobStartingYearChange = (id, event) => {
+    const temp = [...workExperience];
+    const newTemp = temp.map((item) => {
+      if (item.id === id && event) return { ...item, startingYear: event.target.value };
+      return item;
+    });
+    setWorkExperience(newTemp);
+  };
+
+  const handleJobEndingYearChange = (id, event) => {
+    const temp = [...workExperience];
+    const newTemp = temp.map((item) => {
+      if (item.id === id && event) return { ...item, endingYear: event.target.value };
+      return item;
+    });
+    setWorkExperience(newTemp);
+  };
+
+  const handleJobCurrentStatusChange = (id, onGoing, event) => {
+    const temp = [...workExperience];
+    const newTemp = temp.map((item) => {
+      if (item.id === id && event) return { ...item, onGoing: !onGoing };
+      return item;
+    });
+    setWorkExperience(newTemp);
+  };
+
+  const handleAddJobDutyChange = (id) => {
+    const temp = [...workExperience];
+    setOriginalWorkExperience(temp);
+    const newJobDuty = { id: uuidv4(), jobDuty: '', edit: true };
+    const newTemp = temp.map((item) => {
+      if (item.id === id) {
+        const jobDuty = [...item.jobDuty];
+        return { ...item, jobDuty: [...jobDuty, newJobDuty] };
+      }
+      return item;
+    });
+    setWorkExperience(newTemp);
+  };
+
+  const handleJobDutyChange = (id, event) => {
+    const temp = [...workExperience];
+    const newTemp = temp.map((item) => {
+      if (item.id === id) {
+        const newJobDuty = item.jobDuty.map((subItem) => {
+          if (subItem.edit) return { ...subItem, jobDuty: event.target.value };
+          return subItem;
+        });
+        return { ...item, jobDuty: newJobDuty };
+      }
+      return item;
+    });
+    setWorkExperience(newTemp);
+  };
+
+  const handleSubmitWorkChange = () => {
+    const newTemp = workExperience.map((item) => {
+      if (item.edit) return { ...item, edit: false };
+      return item;
+    });
+    setWorkExperience(newTemp);
+  };
+
+  const handleEditWorkChange = (id) => {
+    const temp = [...workExperience];
+    setOriginalWorkExperience(temp);
+    const newTemp = temp.map((item) => {
+      if (item.id === id) return { ...item, edit: true };
+      return item;
+    });
+    setWorkExperience(newTemp);
+  };
+
+  const handleCancelAddWorkChange = () => {
+    setWorkExperience(originalWorkExperience);
+  };
+
+  const handleDeleteWorkChange = (id) => {
+    const temp = [...workExperience];
+    const newTemp = temp.filter((item) => item.id !== id);
+    setWorkExperience(newTemp);
+  };
+
+  const handleSubmitJobDutyChange = () => {
+    const temp = [...workExperience];
+    const newTemp = temp.map((item) => {
+      const newJobDuty = item.jobDuty.map((subItem) => {
+        if (subItem.edit) return { ...subItem, edit: false };
+        return subItem;
+      });
+      return { ...item, jobDuty: newJobDuty };
+    });
+    setWorkExperience(newTemp);
+  };
+
+  const handleEditJobDutyChange = (id) => {
+    const temp = [...workExperience];
+    setOriginalWorkExperience(temp);
+    const newTemp = temp.map((item) => {
+      const newJobDuty = item.jobDuty.map((subItem) => {
+        if (subItem.id === id) return { ...subItem, edit: true };
+        return subItem;
+      });
+      return { ...item, jobDuty: newJobDuty };
+    });
+    setWorkExperience(newTemp);
+  };
+
+  const handleDeleteJobDutyChange = (id) => {
+    const temp = [...workExperience];
+    const newTemp = temp.map((item) => {
+      const newJobDuty = item.jobDuty.filter((subItem) => subItem.id !== id);
+      return { ...item, jobDuty: newJobDuty };
+    });
+    setWorkExperience(newTemp);
+  };
+
+  const loadExample = () => {
+    const exampleBasicInfo = {
+      firstName: 'Ken',
+      lastName: 'Adams',
+      email: 'kenadams@gmail.com',
+      phone: '9883 2343',
+      location: 'Hong Kong',
+      summary:
+        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt, blanditiis? Sint quisquam repellat quasi sunt labore delectus totam asperiores! Nesciunt commodi dolore cupiditate dolores nihil? Assumenda debitis consectetur cum illo!'
+    };
+    const exampleSkills = [
+      { id: uuidv4(), skill: 'ReactJs', edit: false },
+      { id: uuidv4(), skill: 'NodeJs', edit: false },
+      { id: uuidv4(), skill: 'Python', edit: false }
+    ];
+    const exampleEducation = [
+      {
+        id: uuidv4(),
+        school: 'The University of Hong Kong',
+        program: 'Master of Science in Computer Science',
+        location: 'Hong Kong',
+        startingYear: '2022-09',
+        endingYear: '',
+        extraInfo: [
+          {
+            id: uuidv4(),
+            extraInfo:
+              'Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, ratione.',
+            edit: false
+          }
+        ],
+        onGoing: true,
+        edit: false
+      },
+      {
+        id: uuidv4(),
+        school: 'The Chinese University of Hong Kong',
+        program: 'Computer Science and Engineering',
+        location: 'Hong Kong',
+        startingYear: '2018-09',
+        endingYear: '2022-06',
+        extraInfo: [
+          {
+            id: uuidv4(),
+            extraInfo:
+              'Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, ratione.',
+            edit: false
+          },
+          {
+            id: uuidv4(),
+            extraInfo:
+              'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel recusandae ipsa voluptatum esse atque aut non quod quibusdam, voluptatibus autem!',
+            edit: false
+          }
+        ],
+        onGoing: false,
+        edit: false
+      }
+    ];
+    const exampleWorkExperience = [
+      {
+        id: uuidv4(),
+        jobTitle: 'Project Manager',
+        company: 'Google',
+        location: 'USA',
+        startingYear: '2023-03',
+        endingYear: '',
+        jobDuty: [
+          {
+            id: uuidv4(),
+            jobDuty:
+              'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum sequi molestias beatae, magnam consequatur ipsum neque dolorem fugit autem esse voluptatum exercitationem similique consectetur dolore numquam eos? Ab, est voluptas!',
+            edit: false
+          },
+          {
+            id: uuidv4(),
+            jobDuty:
+              'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum sequi molestias beatae, magnam consequatur ipsum neque dolorem fugit autem esse voluptatum exercitationem similique consectetur dolore numquam eos? Ab, est voluptas!',
+            edit: false
+          }
+        ],
+        onGoing: true,
+        edit: false
+      }
+    ];
+    setBasicInfo(exampleBasicInfo);
+    setSkills(exampleSkills);
+    setEducation(exampleEducation);
+    setWorkExperience(exampleWorkExperience);
+    setSkillsEdit(false);
+    setEducationEdit(false);
+    setWorkExperienceEdit(false);
+  };
+
+  const clearAll = () => {
+    setBasicInfo({
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      location: '',
+      summary: ''
+    });
+    setSkills([]);
+    setEducation([]);
+    setWorkExperience([]);
+    setOriginalEducation([]);
+    setOriginalSkills([]);
+    setOriginalWorkExperience([]);
+    setSkillsEdit(false);
+    setEducationEdit(false);
+    setWorkExperienceEdit(false);
+  };
+
+  const printDiv = () => {
+    const divContents = document.getElementById('print').innerHTML;
+    const a = window.open('', '', 'height=500, width=500');
+    a.document.write('<html>');
+    a.document.write('<body >');
+    a.document.write(divContents);
+    a.document.write('</body></html>');
+    a.document.close();
+    a.print();
+  };
+
   return (
     <>
-      <header>
+      <header className="not-printable">
         <h1>CV Generator</h1>
       </header>
       <main className="content">
-        <section className="input-container">
+        <section className="input-container not-printable">
+          <div className="input-card top-button-container">
+            <button type="button" className="card-button load-example-button" onClick={loadExample}>
+              <h3>Load Example</h3>
+            </button>
+            <button type="button" className="card-button clear-all-button" onClick={clearAll}>
+              <h3>Clear All</h3>
+            </button>
+            <button type="button" className="card-button" onClick={window.print}>
+              <h3>Print</h3>
+            </button>
+          </div>
           <BasicInfoInputCard
             basicInfo={basicInfo}
             handleFirstNameChange={handleFirstNameChange}
@@ -283,6 +586,8 @@ function App() {
             handleCancelAddSkillChange={handleCancelAddSkillChange}
             handleSubmitSkillChange={handleSubmitSkillChange}
             handleDeleteSkillChange={handleDeleteSkillChange}
+            skillsEdit={skillsEdit}
+            setSkillsEdit={setSkillsEdit}
             skills={skills}
           />
           <EducationInputCard
@@ -302,16 +607,31 @@ function App() {
             handleSubmitEducationExtraInfoChange={handleSubmitEducationExtraInfoChange}
             handleEditEducationExtraInfoChange={handleEditEducationExtraInfoChange}
             handleDeleteEducationExtraInfoChange={handleDeleteEducationExtraInfoChange}
-            extraInfoEdit={extraInfoEdit}
-            setExtraInfoEdit={setExtraInfoEdit}
             education={education}
+            educationEdit={educationEdit}
+            setEducationEdit={setEducationEdit}
           />
-          <div className="input-card">
-            <div className="card-button">
-              <h2>Work Experience</h2>
-              <FontAwesomeIcon className="fa-icon" icon={faChevronDown} />
-            </div>
-          </div>
+          <WorkInputCard
+            workExperience={workExperience}
+            handleAddWorkChange={handleAddWorkChange}
+            handleJobTitleChange={handleJobTitleChange}
+            handleCompanyChange={handleCompanyChange}
+            handleCompanyLocationChange={handleCompanyLocationChange}
+            handleJobStartingYearChange={handleJobStartingYearChange}
+            handleJobEndingYearChange={handleJobEndingYearChange}
+            handleJobCurrentStatusChange={handleJobCurrentStatusChange}
+            handleAddJobDutyChange={handleAddJobDutyChange}
+            handleJobDutyChange={handleJobDutyChange}
+            handleSubmitWorkChange={handleSubmitWorkChange}
+            handleEditWorkChange={handleEditWorkChange}
+            handleCancelAddWorkChange={handleCancelAddWorkChange}
+            handleDeleteWorkChange={handleDeleteWorkChange}
+            handleEditJobDutyChange={handleEditJobDutyChange}
+            handleSubmitJobDutyChange={handleSubmitJobDutyChange}
+            handleDeleteJobDutyChange={handleDeleteJobDutyChange}
+            workExperienceEdit={workExperienceEdit}
+            setWorkExperienceEdit={setWorkExperienceEdit}
+          />
         </section>
         <section className="resume-container">
           <div className="resume">
@@ -372,6 +692,32 @@ function App() {
                     <ul className="education-extra-info">
                       {item.extraInfo.map((subItem) => (
                         <li key={subItem.id}>{subItem.extraInfo}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="education-container">
+              {workExperience[0] && <h2>Work Experience</h2>}
+              <div className="education">
+                {workExperience.map((item) => (
+                  <div key={item.id} className="education-display-container">
+                    <div className="education-heading">
+                      <h3>{item.jobTitle}</h3>
+                      <p>
+                        {item.startingYear} {item.startingYear && '-'}{' '}
+                        {item.onGoing ? 'Present' : item.endingYear}
+                      </p>
+                    </div>
+                    <div className="program">
+                      <p>
+                        {item.company} {item.company && ','} {item.location}
+                      </p>
+                    </div>
+                    <ul className="education-extra-info">
+                      {item.jobDuty.map((subItem) => (
+                        <li key={subItem.id}>{subItem.jobDuty}</li>
                       ))}
                     </ul>
                   </div>
