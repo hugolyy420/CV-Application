@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrashCan, faBriefcase } from '@fortawesome/free-solid-svg-icons';
 import JobDutyBanner from './job-duty-banner';
@@ -16,19 +15,19 @@ function WorkBanner({
   handleJobDutyChange,
   handleEditWorkChange,
   handleDeleteWorkChange,
-  handleCancelAddWorkChange,
   handleSubmitJobDutyChange,
   handleEditJobDutyChange,
   handleDeleteJobDutyChange,
+  handleCancelAddJobDutyChange,
   workExperienceEdit,
-  setWorkExperienceEdit
+  setWorkExperienceEdit,
+  jobDutyEdit,
+  setJobDutyEdit
 }) {
-  const [jobDutyEdit, setJobDutyEdit] = useState(false);
-
   const bannerAction = () => {
     if (workExperienceEdit && item.edit) {
       return (
-        <div className="education-banner">
+        <div className="banner">
           <form
             action="
 ">
@@ -135,7 +134,7 @@ function WorkBanner({
                     className="form-button cancel-button"
                     onClick={() => {
                       setJobDutyEdit(!jobDutyEdit);
-                      handleCancelAddWorkChange();
+                      handleCancelAddJobDutyChange();
                     }}>
                     Cancel
                   </button>
@@ -171,7 +170,7 @@ function WorkBanner({
     }
     if (!workExperienceEdit) {
       return (
-        <div className="education-banner" style={{ padding: 'var(--small-padding)' }}>
+        <div className="banner" style={{ padding: 'var(--small-padding)' }}>
           <FontAwesomeIcon className="fa-icon" icon={faBriefcase} />
           <p>{item.company}</p>
           <FontAwesomeIcon

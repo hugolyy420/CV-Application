@@ -5,19 +5,28 @@
   box-shadow: var(--box-shadow);
   border-radius: 15px;
   width: 100%;
-  max-width: 300px;
+  max-width: 500px;
 }
 
 .card-button {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   cursor: pointer;
   background-color: var(--primary-color);
   padding: var(--standard-padding);
   color: var(--text-color);
   border: none;
   border-radius: 15px;
+  gap: var(--small-gap);
+}
+
+.card-button > h2 {
+  flex: 1;
+  display: flex;
+}
+
+.card-button .icon {
+  font-size: clamp(1rem, 0.2rem + 2vw, 1.3rem);
 }
 
 form {
@@ -75,7 +84,13 @@ textarea {
   gap: var(--small-gap);
 }
 
-.education-banner {
+.banners-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--small-gap);
+}
+
+.banner {
   display: flex;
   align-items: center;
   gap: var(--small-gap);
@@ -85,13 +100,13 @@ textarea {
 }
 
 .skill-banner > p,
-.education-banner > p,
+.banner > p,
 .skill-banner > input {
   flex: 1;
 }
 
 .skill-banner > p,
-.education-banner > p {
+.banner > p {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -119,7 +134,8 @@ textarea {
   transition-duration: 200ms;
 }
 
-.form-button:hover {
+.form-button:hover,
+.load-example-button:hover {
   background-color: var(--primary-color);
   color: var(--accent-color);
 }
@@ -129,20 +145,24 @@ textarea {
   border: 2px solid var(--cancel-color);
 }
 
-.cancel-button:hover {
+.cancel-button:hover,
+.clear-all-button:hover {
   color: var(--cancel-color);
+  background-color: var(--primary-color);
 }
 
 .top-button-container {
   flex-direction: row;
   gap: var(--small-gap);
   box-shadow: none;
+  justify-content: center;
 }
 
 .top-button-container > button {
-  flex: 1 1 0px;
-  justify-content: center;
+  flex: 1;
+  display: flex;
   align-items: center;
+  justify-content: center;
   box-shadow: var(--box-shadow);
 }
 
@@ -150,10 +170,22 @@ textarea {
   background-color: var(--cancel-color);
   color: var(--primary-color);
   box-shadow: var(--box-shadow);
+  transition-duration: 200ms;
+  border: 2px solid var(--cancel-color);
 }
 
 .load-example-button {
   box-shadow: var(--box-shadow);
   background-color: var(--accent-color);
   color: var(--primary-color);
+  border: 2px solid var(--accent-color);
+  transition-duration: 200ms;
+}
+
+.print-button {
+  transition-duration: 200ms;
+}
+
+.print-button:hover {
+  background-color: var(--secondary-color);
 }

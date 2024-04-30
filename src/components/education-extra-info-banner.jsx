@@ -26,7 +26,7 @@ function EducationExtraInfoBanner({
     }
     if (!extraInfoEdit) {
       return (
-        <div className="education-banner">
+        <div className="banner">
           <p>{subItem.extraInfo}</p>
           <FontAwesomeIcon
             className="fa-icon"

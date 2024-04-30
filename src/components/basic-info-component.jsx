@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import '../styles/input-card-style.css';
 
 function BasicInfoInputCard({
@@ -17,6 +17,7 @@ function BasicInfoInputCard({
   return (
     <div className="input-card">
       <button type="button" className="card-button" onClick={() => setExpand(!expand)}>
+        <FontAwesomeIcon icon={faCircleInfo} className="icon" />
         <h2>Basic Information</h2>
         <FontAwesomeIcon className="chevron" icon={faChevronDown} />
       </button>

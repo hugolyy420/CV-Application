@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSchool, faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import EducationExtraInfoBanner from './education-extra-info-banner';
@@ -16,19 +15,19 @@ function EducationBanner({
   handleEducationExtraInfoChange,
   handleEditEducationChange,
   handleDeleteEducationChange,
-  handleCancelAddEducationChange,
   handleSubmitEducationExtraInfoChange,
   handleEditEducationExtraInfoChange,
   handleDeleteEducationExtraInfoChange,
+  handleCancelAddExtraInfoChange,
   educationEdit,
-  setEducationEdit
+  setEducationEdit,
+  extraInfoEdit,
+  setExtraInfoEdit
 }) {
-  const [extraInfoEdit, setExtraInfoEdit] = useState(false);
-
   const bannerAction = () => {
     if (educationEdit && item.edit) {
       return (
-        <div className="education-banner">
+        <div className="banner">
           <form
             action="
 ">
@@ -135,7 +134,7 @@ function EducationBanner({
                     className="form-button cancel-button"
                     onClick={() => {
                       setExtraInfoEdit(!extraInfoEdit);
-                      handleCancelAddEducationChange();
+                      handleCancelAddExtraInfoChange();
                     }}>
                     Cancel
                   </button>
@@ -171,7 +170,7 @@ function EducationBanner({
     }
     if (!educationEdit) {
       return (
-        <div className="education-banner" style={{ padding: 'var(--small-padding)' }}>
+        <div className="banner" style={{ padding: 'var(--small-padding)' }}>
           <FontAwesomeIcon className="fa-icon" icon={faSchool} />
           <p>{item.school}</p>
           <FontAwesomeIcon

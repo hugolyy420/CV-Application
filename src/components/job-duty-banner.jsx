@@ -14,9 +14,8 @@ function JobDutyBanner({
     if (jobDutyEdit && subItem.edit) {
       return (
         <textarea
-          name="education-extra-info"
+          name="jobDuty"
           placeholder="e.g. Achieve 99% customer satisfaction"
-          className="add-extra-info-input"
           cols="30"
           rows="4"
           onChange={(event) => handleJobDutyChange(item.id, event)}>
@@ -26,7 +25,7 @@ function JobDutyBanner({
     }
     if (!jobDutyEdit) {
       return (
-        <div className="education-banner">
+        <div className="banner">
           <p>{subItem.jobDuty}</p>
           <FontAwesomeIcon
             className="fa-icon"

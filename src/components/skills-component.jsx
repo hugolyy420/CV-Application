@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
 import SkillBanner from './skill-banner';
 import '../styles/input-card-style.css';
 
@@ -19,6 +19,7 @@ function SkillsInputCard({
   return (
     <div className="input-card">
       <button type="button" className="card-button" onClick={() => setExpand(!expand)}>
+        <FontAwesomeIcon icon={faScrewdriverWrench} className="icon" />
         <h2>Skills</h2>
         <FontAwesomeIcon className="chevron" icon={faChevronDown} />
       </button>

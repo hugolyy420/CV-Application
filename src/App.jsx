@@ -1,12 +1,7 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faChevronDown,
-  faEnvelope,
-  faPhone,
-  faLocationDot
-} from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faPhone, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import BasicInfoInputCard from './components/basic-info-component';
 import SkillsInputCard from './components/skills-component';
 import EducationInputCard from './components/education-component';
@@ -194,6 +189,13 @@ function App() {
   };
 
   const handleCancelAddEducationChange = () => {
+    const newTemp = originalEducation.map((item) => {
+      return { ...item, edit: false };
+    });
+    setEducation(newTemp);
+  };
+
+  const handleCancelAddExtraInfoChange = () => {
     setEducation(originalEducation);
   };
 
@@ -385,6 +387,13 @@ function App() {
   };
 
   const handleCancelAddWorkChange = () => {
+    const newTemp = originalWorkExperience.map((item) => {
+      return { ...item, edit: false };
+    });
+    setWorkExperience(newTemp);
+  };
+
+  const handleCancelAddJobDutyChange = () => {
     setWorkExperience(originalWorkExperience);
   };
 
@@ -542,17 +551,6 @@ function App() {
     setWorkExperienceEdit(false);
   };
 
-  const printDiv = () => {
-    const divContents = document.getElementById('print').innerHTML;
-    const a = window.open('', '', 'height=500, width=500');
-    a.document.write('<html>');
-    a.document.write('<body >');
-    a.document.write(divContents);
-    a.document.write('</body></html>');
-    a.document.close();
-    a.print();
-  };
-
   return (
     <>
       <header className="not-printable">
@@ -567,7 +565,7 @@ function App() {
             <button type="button" className="card-button clear-all-button" onClick={clearAll}>
               <h3>Clear All</h3>
             </button>
-            <button type="button" className="card-button" onClick={window.print}>
+            <button type="button" className="card-button print-button" onClick={window.print}>
               <h3>Print</h3>
             </button>
           </div>
@@ -607,6 +605,7 @@ function App() {
             handleSubmitEducationExtraInfoChange={handleSubmitEducationExtraInfoChange}
             handleEditEducationExtraInfoChange={handleEditEducationExtraInfoChange}
             handleDeleteEducationExtraInfoChange={handleDeleteEducationExtraInfoChange}
+            handleCancelAddExtraInfoChange={handleCancelAddExtraInfoChange}
             education={education}
             educationEdit={educationEdit}
             setEducationEdit={setEducationEdit}
@@ -629,6 +628,7 @@ function App() {
             handleEditJobDutyChange={handleEditJobDutyChange}
             handleSubmitJobDutyChange={handleSubmitJobDutyChange}
             handleDeleteJobDutyChange={handleDeleteJobDutyChange}
+            handleCancelAddJobDutyChange={handleCancelAddJobDutyChange}
             workExperienceEdit={workExperienceEdit}
             setWorkExperienceEdit={setWorkExperienceEdit}
           />
@@ -698,24 +698,24 @@ function App() {
                 ))}
               </div>
             </div>
-            <div className="education-container">
+            <div className="work-container">
               {workExperience[0] && <h2>Work Experience</h2>}
-              <div className="education">
+              <div className="work">
                 {workExperience.map((item) => (
-                  <div key={item.id} className="education-display-container">
-                    <div className="education-heading">
+                  <div key={item.id} className="work-display-container">
+                    <div className="work-heading">
                       <h3>{item.jobTitle}</h3>
                       <p>
                         {item.startingYear} {item.startingYear && '-'}{' '}
                         {item.onGoing ? 'Present' : item.endingYear}
                       </p>
                     </div>
-                    <div className="program">
+                    <div className="company">
                       <p>
                         {item.company} {item.company && ','} {item.location}
                       </p>
                     </div>
-                    <ul className="education-extra-info">
+                    <ul className="job-duty">
                       {item.jobDuty.map((subItem) => (
                         <li key={subItem.id}>{subItem.jobDuty}</li>
                       ))}

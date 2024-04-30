@@ -5,19 +5,19 @@
 }
 
 :root {
-  --small-padding: clamp(0.3rem, 0.05rem + 0.5vw, 0.8rem);
-  --standard-padding: clamp(0.7rem, 0.2rem + 2vw, 1.5rem);
+  --small-padding: clamp(0.5rem, 0.05rem + 1vw, 1rem);
+  --standard-padding: clamp(1rem, 0.2rem + 2vw, 1.5rem);
   --large-padding: clamp(1rem, 0.2rem + 2.5vw, 2.5rem);
   --standard-margin: clamp(0.8rem, 0.2rem + 2vw, 1.5rem);
   --standard-gap: clamp(0.8rem, 0.2rem + 2vw, 1.5rem);
-  --small-gap: clamp(0.2rem, 0.01rem + 0.5vw, 0.7rem);
+  --small-gap: clamp(0.5rem, 0.1rem + 0.5vw, 1rem);
   --input-padding: clamp(0.2rem, 0.01rem + 0.5vw, 0.7rem);
   --background-color: #f8fbfd;
   --primary-color: #f8fbfd;
   --secondary-color: #e7e9ea;
-  --accent-color: #4eb7e9;
+  --accent-color: #11668d;
   --text-color: #081013;
-  --cancel-color: #ea6767;
+  --cancel-color: #be1c1c;
   --box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
@@ -58,6 +58,7 @@
     justify-content: center;
     align-items: center;
     padding: var(--standard-padding);
+    box-shadow: var(--box-shadow);
   }
 
   main {
@@ -66,9 +67,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     margin: var(--standard-margin);
     padding: var(--standard-padding);
     gap: var(--standard-gap);
+    overflow-x: auto;
   }
 
   section {
@@ -80,6 +83,7 @@
   .input-container {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: var(--standard-gap);
   }
 
@@ -142,23 +146,27 @@
     gap: var(--small-gap);
   }
 
-  .education-display-container {
+  .education-display-container,
+  .work-display-container {
     display: flex;
     flex-direction: column;
     gap: var(--small-gap);
   }
 
-  .education-heading {
+  .education-heading,
+  .work-heading {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
 
-  .education-extra-info {
+  .education-extra-info,
+  .job-duty {
     list-style: inside;
   }
 
-  .education {
+  .education,
+  .work {
     display: flex;
     flex-direction: column;
     gap: var(--small-gap);
@@ -169,6 +177,7 @@
   main {
     display: flex;
     flex-direction: row;
+    align-items: flex-start;
   }
 }
 
@@ -176,6 +185,10 @@
   @page {
     size: A4;
     margin: 1cm;
+  }
+
+  li {
+    list-style-type: disc;
   }
 
   .not-printable {

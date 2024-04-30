@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faSchool } from '@fortawesome/free-solid-svg-icons';
 import EducationBanner from './education-banner';
 import '../styles/input-card-style.css';
 
@@ -22,20 +22,23 @@ function EducationInputCard({
   handleSubmitEducationExtraInfoChange,
   handleEditEducationExtraInfoChange,
   handleDeleteEducationExtraInfoChange,
+  handleCancelAddExtraInfoChange,
   educationEdit,
   setEducationEdit
 }) {
   const [expand, setExpand] = useState(false);
+  const [extraInfoEdit, setExtraInfoEdit] = useState(false);
 
   return (
     <div className="input-card">
       <button type="button" className="card-button" onClick={() => setExpand(!expand)}>
+        <FontAwesomeIcon className="fa-icon icon" icon={faSchool} />
         <h2>Education</h2>
         <FontAwesomeIcon className="chevron" icon={faChevronDown} />
       </button>
       {expand && (
         <div className="form-container">
-          <div className="education-banners-container">
+          <div className="banners-container">
             {education.map((item) => (
               <EducationBanner
                 key={item.id}
@@ -54,8 +57,11 @@ function EducationInputCard({
                 handleSubmitEducationExtraInfoChange={handleSubmitEducationExtraInfoChange}
                 handleEditEducationExtraInfoChange={handleEditEducationExtraInfoChange}
                 handleDeleteEducationExtraInfoChange={handleDeleteEducationExtraInfoChange}
+                handleCancelAddExtraInfoChange={handleCancelAddExtraInfoChange}
                 setEducationEdit={setEducationEdit}
                 educationEdit={educationEdit}
+                extraInfoEdit={extraInfoEdit}
+                setExtraInfoEdit={setExtraInfoEdit}
               />
             ))}
           </div>
@@ -67,6 +73,7 @@ function EducationInputCard({
                   className="form-button cancel-button add-skill-form-button "
                   onClick={() => {
                     setEducationEdit(!educationEdit);
+                    setExtraInfoEdit(false);
                     handleCancelAddEducationChange(educationEdit);
                   }}>
                   <h3>Cancel</h3>
